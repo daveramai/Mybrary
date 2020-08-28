@@ -1,8 +1,4 @@
 const mongoose = require("mongoose");
-const path = require("path");
-
-//define file upload base path (inside public directory)
-const coverImageBasePath = "uploads/bookCovers";
 
 //similar to defining a database table
 const bookSchema = new mongoose.Schema({
@@ -26,10 +22,13 @@ const bookSchema = new mongoose.Schema({
     required: true,
     default: Date.now,
   },
-  coverImageName: {
+  coverImage: {
+    type: Buffer,
+    required: true,
+  },
+  coverImageType: {
     type: String,
     required: true,
-    ref: "Author",
   },
   author: {
     type: mongoose.Schema.Types.ObjectId,
@@ -39,12 +38,14 @@ const bookSchema = new mongoose.Schema({
 
 //created a virtual property
 bookSchema.virtual("coverImagePath").get(function () {
-  //didn't use arror function since we need access to 'this' object
+  //didn't use arroy function since we need access to 'this' object
   //if this book has a cover image applied to it
-  if (this.coverImageName != null) {
-    return path.join("/", coverImageBasePath, this.coverImageName); //note: require path module. Also the '/' path is really the public path
+  if (this.coverImage != null && this.coverImageType != null) {
+    //used template literal to embed variables and html code
+    return `data:${
+      this.coverImageType
+    };charset=utf-8;base64,${this.coverImage.toString("base64")}`;
   }
 });
 
 module.exports = mongoose.model("Book", bookSchema);
-module.exports.coverImageBasePath = coverImageBasePath; //esported the base path
