@@ -36,7 +36,7 @@ const bookSchema = new mongoose.Schema({
   },
 });
 
-//created a virtual property
+//created a virtual property called coverImagePath called as book.coverImagePath
 bookSchema.virtual("coverImagePath").get(function () {
   //didn't use arroy function since we need access to 'this' object
   //if this book has a cover image applied to it
