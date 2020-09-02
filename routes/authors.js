@@ -51,7 +51,6 @@ router.get("/:id", async (req, res) => {
   try {
     const author = await Author.findById(req.params.id);
     const books = await Book.find({ author: author.id }).limit(5).exec();
-    console.log(author);
     res.render("authors/show", {
       author: author,
       booksByAuthor: books,
