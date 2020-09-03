@@ -1,0 +1,17 @@
+<!-- Set the css classes for the book size here-->
+<% bookCoverClass = locals.large ? 'book-cover-large' : '' %>
+<!---->
+<%bookGridClass = locals.large ? 'book-grid-large' : '' %>
+<!-- traverse all books -->
+
+<div class="book-grid <%= bookGridClass %>">
+  <% books.forEach( book => {%>
+  <a href="/books/<%= book.id %>">
+    <img
+      class="book-cover <%= bookCoverClass %>"
+      src="<%= book.coverImagePath %>"
+    />
+  </a>
+  <!-- nb: book.coverImagePath is defined in book model-->
+  <%})%>
+</div>

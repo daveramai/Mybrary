@@ -11,17 +11,20 @@
   </div>
 </form>
 <br />
-<% authors.forEach(author => {%> <%= author.name %>
-<div class="btn-row">
-  <a class="btn btn-primary" href="/authors/<%= author.id %>">View</a>
-  <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">Edit</a>
-  <!--Delete requires a form to avoid search engine from deleting if it is a link-->
-  <!--Using a partials instead for reusability-->
-  <%- include('../partials/deleteForm', {url: `/authors/${author.id}` }) %>
+<% authors.forEach(author => {%>
+<div class="author-row">
+  <div class="author-name"><%= author.name %></div>
+  <div class="btn-row">
+    <a class="btn btn-primary" href="/authors/<%= author.id %>">View</a>
+    <a class="btn btn-primary" href="/authors/<%= author.id %>/edit">Edit</a>
+    <!--Delete requires a form to avoid search engine from deleting if it is a link-->
+    <!--Using a partials instead for reusability-->
+    <%- include('../partials/deleteForm', {url: `/authors/${author.id}` }) %>
 
-  <!-- <form method="POST" action="/authors/<%= author.id %>?_method=DELETE">
+    <!-- <form method="POST" action="/authors/<%= author.id %>?_method=DELETE">
     <button type="submit">Delete</button>
   </form> -->
+  </div>
 </div>
 
 <%})%>
